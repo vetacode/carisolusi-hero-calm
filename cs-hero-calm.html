@@ -409,66 +409,61 @@
               backdrop-filter: blur(8px);
             "
           >
-            <button
-              onclick="
-                scrollTo('home');
-                closeMenu();
-              "
+            <a
+              href="#home"
+              onclick="closeMenu()"
               class="text-left py-3 text-base font-medium text-black"
               style="border-bottom: 1px solid #f0f0f0"
               data-id="Beranda"
               data-en="Home"
             >
               Beranda
-            </button>
-            <button
-              onclick="
-                scrollTo('studio');
-                closeMenu();
-              "
+            </a>
+
+            <a
+              href="#studio"
+              onclick="closeMenu()"
               class="text-left py-3 text-base"
               style="color: #6f6f6f; border-bottom: 1px solid #f0f0f0"
               data-id="Studio"
               data-en="Studio"
             >
               Studio
-            </button>
-            <button
-              onclick="
-                scrollTo('about');
-                closeMenu();
-              "
+            </a>
+
+            <a
+              href="#about"
+              onclick="closeMenu()"
               class="text-left py-3 text-base"
               style="color: #6f6f6f; border-bottom: 1px solid #f0f0f0"
               data-id="Tentang"
               data-en="About"
             >
               Tentang
-            </button>
-            <button
-              onclick="
-                scrollTo('journal');
-                closeMenu();
-              "
+            </a>
+
+            <a
+              href="#journal"
+              onclick="closeMenu()"
               class="text-left py-3 text-base"
               style="color: #6f6f6f; border-bottom: 1px solid #f0f0f0"
               data-id="Jurnal"
               data-en="Journal"
             >
               Jurnal
-            </button>
-            <button
-              onclick="
-                scrollTo('contact');
-                closeMenu();
-              "
+            </a>
+
+            <a
+              href="#contact"
+              onclick="closeMenu()"
               class="text-left py-3 text-base"
               style="color: #6f6f6f"
               data-id="Hubungi"
               data-en="Reach Us"
             >
               Hubungi
-            </button>
+            </a>
+
             <a
               id="mob-cta"
               href="https://wa.me/6281384072641?text=Halo%2C%20saya%20ingin%20mendiskusikan%20proyek%20dengan%20CariSolusi.%20Bisakah%20kita%20terhubung%3F"
@@ -477,8 +472,9 @@
               class="pill-sm text-center mt-4"
               data-id="Mulai Perjalanan"
               data-en="Begin Journey"
-              >Mulai Perjalanan</a
             >
+              Mulai Perjalanan
+            </a>
           </div>
         </div>
       </nav>
@@ -1249,14 +1245,15 @@
             </div>
           </div>
           <div class="flex gap-6 flex-wrap items-center">
-            <button
-              onclick="scrollTo('home')"
+            <a
+              href="#home"
               style="
                 font-size: 0.875rem;
                 color: #6f6f6f;
                 background: none;
                 border: none;
                 transition: color 0.2s;
+                text-decoration: none;
               "
               onmouseover="this.style.color = '#fff'"
               onmouseout="this.style.color = '#6F6F6F'"
@@ -1264,15 +1261,17 @@
               data-en="Home"
             >
               Beranda
-            </button>
-            <button
-              onclick="scrollTo('studio')"
+            </a>
+
+            <a
+              href="#studio"
               style="
                 font-size: 0.875rem;
                 color: #6f6f6f;
                 background: none;
                 border: none;
                 transition: color 0.2s;
+                text-decoration: none;
               "
               onmouseover="this.style.color = '#fff'"
               onmouseout="this.style.color = '#6F6F6F'"
@@ -1280,15 +1279,17 @@
               data-en="Studio"
             >
               Studio
-            </button>
-            <button
-              onclick="scrollTo('about')"
+            </a>
+
+            <a
+              href="#about"
               style="
                 font-size: 0.875rem;
                 color: #6f6f6f;
                 background: none;
                 border: none;
                 transition: color 0.2s;
+                text-decoration: none;
               "
               onmouseover="this.style.color = '#fff'"
               onmouseout="this.style.color = '#6F6F6F'"
@@ -1296,15 +1297,17 @@
               data-en="About"
             >
               Tentang
-            </button>
-            <button
-              onclick="scrollTo('journal')"
+            </a>
+
+            <a
+              href="#journal"
               style="
                 font-size: 0.875rem;
                 color: #6f6f6f;
                 background: none;
                 border: none;
                 transition: color 0.2s;
+                text-decoration: none;
               "
               onmouseover="this.style.color = '#fff'"
               onmouseout="this.style.color = '#6F6F6F'"
@@ -1312,15 +1315,17 @@
               data-en="Journal"
             >
               Jurnal
-            </button>
-            <button
-              onclick="scrollTo('contact')"
+            </a>
+
+            <a
+              href="#contact"
               style="
                 font-size: 0.875rem;
                 color: #6f6f6f;
                 background: none;
                 border: none;
                 transition: color 0.2s;
+                text-decoration: none;
               "
               onmouseover="this.style.color = '#fff'"
               onmouseout="this.style.color = '#6F6F6F'"
@@ -1328,7 +1333,7 @@
               data-en="Reach Us"
             >
               Hubungi
-            </button>
+            </a>
           </div>
         </div>
         <div
