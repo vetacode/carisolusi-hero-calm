@@ -1,0 +1,1437 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CariSolusi</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              serif: ['Instrument Serif', 'Georgia', 'serif'],
+              sans: ['Inter', 'sans-serif'],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* Base */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background: #fff;
+        color: #000;
+        margin: 0;
+      }
+      button,
+      a {
+        cursor: pointer;
+      }
+      a {
+        text-decoration: none;
+      }
+
+      /* Animations */
+      @keyframes fadeRise {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-rise {
+        animation: fadeRise 0.8s ease-out forwards;
+      }
+      .animate-fade-rise-d1 {
+        animation: fadeRise 0.8s 0.2s ease-out forwards;
+        opacity: 0;
+      }
+      .animate-fade-rise-d2 {
+        animation: fadeRise 0.8s 0.4s ease-out forwards;
+        opacity: 0;
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Video fade */
+      #hero-video {
+        transition: opacity 0.5s ease;
+      }
+
+      /* Image hover zoom */
+      .img-zoom img {
+        transition: transform 0.7s ease;
+      }
+      .img-zoom:hover img {
+        transform: scale(1.05);
+      }
+
+      /* Hamburger lines */
+      .ham-line {
+        display: block;
+        height: 1.5px;
+        background: #000;
+        transition: all 0.3s ease;
+        transform-origin: center;
+      }
+      .ham-open .ham-top {
+        width: 24px !important;
+        transform: rotate(45deg) translateY(4.5px);
+      }
+      .ham-open .ham-mid {
+        opacity: 0;
+      }
+      .ham-open .ham-bot {
+        width: 24px !important;
+        transform: rotate(-45deg) translateY(-4.5px);
+      }
+
+      /* Mobile menu */
+      #mobile-menu {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition:
+          max-height 0.32s ease,
+          opacity 0.32s ease;
+      }
+      #mobile-menu.open {
+        max-height: 420px;
+        opacity: 1;
+      }
+
+      /* Lang toggle active */
+      .lang-btn.active {
+        color: #000;
+        font-weight: 600;
+      }
+      .lang-btn.inactive {
+        color: #bbb;
+      }
+
+      /* Misc */
+      .font-serif {
+        font-family: 'Instrument Serif', Georgia, serif;
+      }
+      .tracking-widest-custom {
+        letter-spacing: 0.15em;
+      }
+      .pill-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+        padding: 0 3rem;
+        height: 56px;
+        font-size: 1rem;
+        background: #000;
+        color: #fff;
+        transition: transform 0.2s ease;
+      }
+      .pill-btn:hover {
+        transform: scale(1.03);
+      }
+      .pill-btn-outline {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+        padding: 0 3rem;
+        height: 56px;
+        font-size: 1rem;
+        background: transparent;
+        color: #000;
+        border: 1px solid #000;
+        transition: all 0.2s ease;
+      }
+      .pill-btn-outline:hover {
+        background: #000;
+        color: #fff;
+      }
+      .pill-sm {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+        padding: 0.625rem 1.5rem;
+        font-size: 0.875rem;
+        background: #000;
+        color: #fff;
+        transition: transform 0.2s ease;
+      }
+      .pill-sm:hover {
+        transform: scale(1.03);
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ═══════════════════════════════════════ HERO SECTION ══ -->
+    <div
+      id="home"
+      class="relative min-h-screen w-full overflow-hidden bg-white"
+    >
+      <!-- Video Background -->
+      <div
+        class="absolute pointer-events-none"
+        style="top: 300px; inset: auto 0 0 0; z-index: 0; overflow: hidden"
+      >
+        <video
+          id="hero-video"
+          autoplay
+          muted
+          playsinline
+          style="width: 100%; height: 100%; object-fit: cover"
+          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
+        ></video>
+        <!-- Gradient overlays -->
+        <div
+          class="absolute inset-0 pointer-events-none"
+          style="
+            background: linear-gradient(to bottom, #fff 0%, transparent 40%);
+          "
+        ></div>
+        <div
+          class="absolute inset-0 pointer-events-none"
+          style="background: linear-gradient(to top, #fff 0%, transparent 40%)"
+        ></div>
+      </div>
+
+      <!-- Navbar -->
+      <nav style="position: relative; z-index: 10">
+        <div
+          class="flex justify-between items-center max-w-7xl mx-auto px-6 py-6"
+          style="padding-left: 2rem; padding-right: 2rem"
+        >
+          <!-- Logo -->
+          <div
+            class="font-serif text-black"
+            style="font-size: 1.75rem; letter-spacing: -0.02em"
+          >
+            CariSolusi
+          </div>
+
+          <!-- Desktop Nav -->
+          <div class="hidden md:flex gap-6 items-center">
+            <button
+              onclick="scrollTo('home')"
+              class="text-sm text-black font-medium hover:opacity-70 transition-opacity"
+              data-id="Beranda"
+              data-en="Home"
+            >
+              Beranda
+            </button>
+            <button
+              onclick="scrollTo('studio')"
+              class="text-sm hover:text-black transition-colors"
+              style="color: #6f6f6f"
+              data-id="Studio"
+              data-en="Studio"
+            >
+              Studio
+            </button>
+            <button
+              onclick="scrollTo('about')"
+              class="text-sm hover:text-black transition-colors"
+              style="color: #6f6f6f"
+              data-id="Tentang"
+              data-en="About"
+            >
+              Tentang
+            </button>
+            <button
+              onclick="scrollTo('journal')"
+              class="text-sm hover:text-black transition-colors"
+              style="color: #6f6f6f"
+              data-id="Jurnal"
+              data-en="Journal"
+            >
+              Jurnal
+            </button>
+            <button
+              onclick="scrollTo('contact')"
+              class="text-sm hover:text-black transition-colors"
+              style="color: #6f6f6f"
+              data-id="Hubungi"
+              data-en="Reach Us"
+            >
+              Hubungi
+            </button>
+          </div>
+
+          <!-- Desktop right: lang toggle + CTA -->
+          <div class="hidden md:flex items-center gap-3">
+            <div
+              class="flex items-center gap-1 text-xs font-medium"
+              style="letter-spacing: 0.12em"
+            >
+              <button
+                id="lang-id-d"
+                class="lang-btn active"
+                onclick="setLang('id')"
+              >
+                ID
+              </button>
+              <span style="color: #ddd">|</span>
+              <button
+                id="lang-en-d"
+                class="lang-btn inactive"
+                onclick="setLang('en')"
+              >
+                EN
+              </button>
+            </div>
+            <a
+              id="nav-cta"
+              href="https://wa.me/6281384072641?text=Halo%2C%20saya%20ingin%20mendiskusikan%20proyek%20dengan%20CariSolusi.%20Bisakah%20kita%20terhubung%3F"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="pill-sm"
+              data-id="Mulai Perjalanan"
+              data-en="Begin Journey"
+              >Mulai Perjalanan</a
+            >
+          </div>
+
+          <!-- Mobile: lang + hamburger -->
+          <div class="flex md:hidden items-center gap-3">
+            <div
+              class="flex items-center gap-1 text-xs font-medium"
+              style="letter-spacing: 0.12em"
+            >
+              <button
+                id="lang-id-m"
+                class="lang-btn active"
+                onclick="setLang('id')"
+              >
+                ID
+              </button>
+              <span style="color: #ddd">|</span>
+              <button
+                id="lang-en-m"
+                class="lang-btn inactive"
+                onclick="setLang('en')"
+              >
+                EN
+              </button>
+            </div>
+            <button
+              id="ham-btn"
+              onclick="toggleMenu()"
+              aria-label="Toggle menu"
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                width: 32px;
+                height: 32px;
+                align-items: center;
+                justify-content: center;
+                background: none;
+                border: none;
+                padding: 0;
+              "
+            >
+              <span class="ham-line ham-top" style="width: 24px"></span>
+              <span class="ham-line ham-mid" style="width: 20px"></span>
+              <span class="ham-line ham-bot" style="width: 16px"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu">
+          <div
+            class="flex flex-col px-6 pb-8 gap-1 pt-4"
+            style="
+              border-top: 1px solid #e5e5e5;
+              background: rgba(255, 255, 255, 0.96);
+              backdrop-filter: blur(8px);
+            "
+          >
+            <button
+              onclick="
+                scrollTo('home');
+                closeMenu();
+              "
+              class="text-left py-3 text-base font-medium text-black"
+              style="border-bottom: 1px solid #f0f0f0"
+              data-id="Beranda"
+              data-en="Home"
+            >
+              Beranda
+            </button>
+            <button
+              onclick="
+                scrollTo('studio');
+                closeMenu();
+              "
+              class="text-left py-3 text-base"
+              style="color: #6f6f6f; border-bottom: 1px solid #f0f0f0"
+              data-id="Studio"
+              data-en="Studio"
+            >
+              Studio
+            </button>
+            <button
+              onclick="
+                scrollTo('about');
+                closeMenu();
+              "
+              class="text-left py-3 text-base"
+              style="color: #6f6f6f; border-bottom: 1px solid #f0f0f0"
+              data-id="Tentang"
+              data-en="About"
+            >
+              Tentang
+            </button>
+            <button
+              onclick="
+                scrollTo('journal');
+                closeMenu();
+              "
+              class="text-left py-3 text-base"
+              style="color: #6f6f6f; border-bottom: 1px solid #f0f0f0"
+              data-id="Jurnal"
+              data-en="Journal"
+            >
+              Jurnal
+            </button>
+            <button
+              onclick="
+                scrollTo('contact');
+                closeMenu();
+              "
+              class="text-left py-3 text-base"
+              style="color: #6f6f6f"
+              data-id="Hubungi"
+              data-en="Reach Us"
+            >
+              Hubungi
+            </button>
+            <a
+              id="mob-cta"
+              href="https://wa.me/6281384072641?text=Halo%2C%20saya%20ingin%20mendiskusikan%20proyek%20dengan%20CariSolusi.%20Bisakah%20kita%20terhubung%3F"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="pill-sm text-center mt-4"
+              data-id="Mulai Perjalanan"
+              data-en="Begin Journey"
+              >Mulai Perjalanan</a
+            >
+          </div>
+        </div>
+      </nav>
+
+      <!-- Hero Content -->
+      <div
+        class="flex flex-col items-center justify-center text-center px-6 relative"
+        style="
+          z-index: 10;
+          padding-top: calc(8rem - 75px);
+          padding-bottom: 10rem;
+        "
+      >
+        <h1
+          id="hero-h1"
+          class="font-serif font-normal text-black animate-fade-rise"
+          style="
+            font-size: clamp(2.8rem, 9vw, 6rem);
+            max-width: 90rem;
+            line-height: 0.95;
+            letter-spacing: -2.46px;
+          "
+        >
+          Melampaui <em style="color: #6f6f6f">kesunyian,</em> kami membangun
+          <em style="color: #6f6f6f">yang abadi.</em>
+        </h1>
+        <p
+          id="hero-desc"
+          class="animate-fade-rise-d1"
+          style="
+            max-width: 42rem;
+            margin-top: 2rem;
+            line-height: 1.75;
+            color: #6f6f6f;
+            font-size: 1rem;
+          "
+        >
+          Membangun platform untuk pikiran-pikiran cemerlang, pembuat yang
+          berani, dan jiwa yang penuh pertimbangan. Di tengah kebisingan, kami
+          menciptakan ruang digital untuk kerja mendalam dan aliran murni.
+        </p>
+        <a
+          id="hero-cta"
+          href="https://wa.me/6281384072641?text=Halo%2C%20saya%20ingin%20mendiskusikan%20proyek%20dengan%20CariSolusi.%20Bisakah%20kita%20terhubung%3F"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="pill-btn animate-fade-rise-d2"
+          style="margin-top: 3rem; padding: 0 3.5rem; height: 64px"
+          data-id="Mulai Perjalanan"
+          data-en="Begin Journey"
+          >Mulai Perjalanan</a
+        >
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════ ABOUT ══ -->
+    <div id="about" style="border-top: 1px solid #e5e5e5">
+      <section
+        class="reveal max-w-7xl mx-auto px-6 py-24"
+        style="padding-left: 2rem; padding-right: 2rem"
+      >
+        <div
+          class="grid gap-16 items-start"
+          style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))"
+        >
+          <div>
+            <span
+              class="text-xs uppercase"
+              style="letter-spacing: 0.15em; color: #6f6f6f"
+              data-id="Tentang"
+              data-en="About"
+              >Tentang</span
+            >
+            <h2
+              id="about-h2"
+              class="font-serif font-normal text-black mt-4"
+              style="
+                font-size: clamp(2rem, 5vw, 3.5rem);
+                line-height: 1.05;
+                letter-spacing: -1px;
+              "
+              data-id="Kami adalah arsitek dari yang tak terlihat."
+              data-en="We are architects of the invisible."
+            >
+              Kami adalah arsitek dari yang tak terlihat.
+            </h2>
+          </div>
+          <div>
+            <p
+              id="about-p1"
+              style="
+                font-size: 1rem;
+                line-height: 1.75;
+                color: #6f6f6f;
+                margin-top: 0;
+              "
+              data-id="CariSolusi didirikan atas keyakinan sederhana: bahwa dunia digital layak mendapat penghormatan yang sama seperti dunia fisik. Kami membentuk pengalaman yang bertahan — platform, identitas, dan narasi yang bergema melampaui tren."
+              data-en="CariSolusi was founded on a simple belief: that the digital world deserves the same reverence as the physical. We shape experiences that endure — platforms, identities, and narratives that resonate beyond trends."
+            >
+              CariSolusi didirikan atas keyakinan sederhana: bahwa dunia digital
+              layak mendapat penghormatan yang sama seperti dunia fisik. Kami
+              membentuk pengalaman yang bertahan — platform, identitas, dan
+              narasi yang bergema melampaui tren.
+            </p>
+            <p
+              id="about-p2"
+              style="
+                font-size: 1rem;
+                line-height: 1.75;
+                color: #6f6f6f;
+                margin-top: 1.5rem;
+              "
+              data-id="Kami bekerja dengan sejumlah kecil klien dalam satu waktu, memberikan bobot penuh perhatian kami pada setiap proyek. Hasilnya adalah karya yang terasa tak terelakkan — seolah tidak bisa dibuat dengan cara lain."
+              data-en="We work with a small number of clients at a time, giving each project the full weight of our attention. The result is work that feels inevitable — as if it could not have been made any other way."
+            >
+              Kami bekerja dengan sejumlah kecil klien dalam satu waktu,
+              memberikan bobot penuh perhatian kami pada setiap proyek. Hasilnya
+              adalah karya yang terasa tak terelakkan — seolah tidak bisa dibuat
+              dengan cara lain.
+            </p>
+            <div class="flex gap-12 flex-wrap" style="margin-top: 3rem">
+              <div>
+                <div class="font-serif text-black" style="font-size: 1.875rem">
+                  12+
+                </div>
+                <div
+                  style="
+                    font-size: 0.875rem;
+                    color: #6f6f6f;
+                    margin-top: 0.25rem;
+                  "
+                  data-id="Tahun Pengalaman"
+                  data-en="Years of Practice"
+                >
+                  Tahun Pengalaman
+                </div>
+              </div>
+              <div>
+                <div class="font-serif text-black" style="font-size: 1.875rem">
+                  80+
+                </div>
+                <div
+                  style="
+                    font-size: 0.875rem;
+                    color: #6f6f6f;
+                    margin-top: 0.25rem;
+                  "
+                  data-id="Proyek Diselesaikan"
+                  data-en="Projects Delivered"
+                >
+                  Proyek Diselesaikan
+                </div>
+              </div>
+              <div>
+                <div class="font-serif text-black" style="font-size: 1.875rem">
+                  3
+                </div>
+                <div
+                  style="
+                    font-size: 0.875rem;
+                    color: #6f6f6f;
+                    margin-top: 0.25rem;
+                  "
+                  data-id="Benua Dilayani"
+                  data-en="Continents Served"
+                >
+                  Benua Dilayani
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="img-zoom overflow-hidden rounded-sm"
+          style="margin-top: 4rem; width: 100%; aspect-ratio: 16/7"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&h=700&fit=crop&auto=format&q=85"
+            alt="Creative studio workspace"
+            style="width: 100%; height: 100%; object-fit: cover"
+            loading="lazy"
+          />
+        </div>
+      </section>
+    </div>
+
+    <!-- ═══════════════════════════════════════ SERVICES ══ -->
+    <div id="studio" style="background: #f8f8f8">
+      <section
+        class="reveal max-w-7xl mx-auto px-6 py-24"
+        style="padding-left: 2rem; padding-right: 2rem"
+      >
+        <div
+          class="items-end gap-16"
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            margin-bottom: 4rem;
+          "
+        >
+          <div>
+            <span
+              class="text-xs uppercase"
+              style="letter-spacing: 0.15em; color: #6f6f6f"
+              data-id="Studio"
+              data-en="Studio"
+              >Studio</span
+            >
+            <h2
+              id="svc-h2"
+              class="font-serif font-normal text-black mt-4"
+              style="font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -1px"
+              data-id="Apa yang kami ciptakan."
+              data-en="What we craft."
+            >
+              Apa yang kami ciptakan.
+            </h2>
+          </div>
+          <div
+            class="img-zoom overflow-hidden rounded-sm"
+            style="width: 100%; aspect-ratio: 16/9"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&h=675&fit=crop&auto=format&q=85"
+              alt="Creative team studio"
+              style="width: 100%; height: 100%; object-fit: cover"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid #e5e5e5">
+          <!-- Service 1 -->
+          <div
+            class="flex flex-col md:flex-row justify-between items-start py-8 gap-4 md:gap-8"
+            style="border-bottom: 1px solid #e5e5e5"
+          >
+            <div class="font-mono text-xs pt-1 w-8" style="color: #6f6f6f">
+              01
+            </div>
+            <div
+              class="font-serif text-black flex-1 md:ml-8"
+              style="font-size: clamp(1.25rem, 3vw, 1.75rem)"
+              data-id="Identitas Merek"
+              data-en="Brand Identity"
+            >
+              Identitas Merek
+            </div>
+            <div
+              class="text-sm leading-relaxed"
+              style="color: #6f6f6f; max-width: 20rem"
+              data-id="Menciptakan bahasa visual yang berbicara sebelum kata-kata. Logo, sistem warna, tipografi, dan arsitektur senyap dari pengenalan."
+              data-en="Crafting visual languages that speak before words. Logos, color systems, typography, and the quiet architecture of recognition."
+            >
+              Menciptakan bahasa visual yang berbicara sebelum kata-kata. Logo,
+              sistem warna, tipografi, dan arsitektur senyap dari pengenalan.
+            </div>
+          </div>
+          <!-- Service 2 -->
+          <div
+            class="flex flex-col md:flex-row justify-between items-start py-8 gap-4 md:gap-8"
+            style="border-bottom: 1px solid #e5e5e5"
+          >
+            <div class="font-mono text-xs pt-1 w-8" style="color: #6f6f6f">
+              02
+            </div>
+            <div
+              class="font-serif text-black flex-1 md:ml-8"
+              style="font-size: clamp(1.25rem, 3vw, 1.75rem)"
+              data-id="Pengalaman Digital"
+              data-en="Digital Experience"
+            >
+              Pengalaman Digital
+            </div>
+            <div
+              class="text-sm leading-relaxed"
+              style="color: #6f6f6f; max-width: 20rem"
+              data-id="Platform web dan produk digital yang terasa hidup — responsif, penuh niat, dan dibangun untuk bertahan di setiap perangkat dan era."
+              data-en="Web platforms and digital products that feel alive — responsive, intentional, and built to last across every device and era."
+            >
+              Platform web dan produk digital yang terasa hidup — responsif,
+              penuh niat, dan dibangun untuk bertahan di setiap perangkat dan
+              era.
+            </div>
+          </div>
+          <!-- Service 3 -->
+          <div
+            class="flex flex-col md:flex-row justify-between items-start py-8 gap-4 md:gap-8"
+            style="border-bottom: 1px solid #e5e5e5"
+          >
+            <div class="font-mono text-xs pt-1 w-8" style="color: #6f6f6f">
+              03
+            </div>
+            <div
+              class="font-serif text-black flex-1 md:ml-8"
+              style="font-size: clamp(1.25rem, 3vw, 1.75rem)"
+              data-id="Arahan Seni"
+              data-en="Art Direction"
+            >
+              Arahan Seni
+            </div>
+            <div
+              class="text-sm leading-relaxed"
+              style="color: #6f6f6f; max-width: 20rem"
+              data-id="Visi di balik visi. Kami memandu kampanye, proyek editorial, dan peluncuran dari konsep hingga bentuk akhir."
+              data-en="The vision behind the vision. We guide campaigns, editorial projects, and launches from concept to final form."
+            >
+              Visi di balik visi. Kami memandu kampanye, proyek editorial, dan
+              peluncuran dari konsep hingga bentuk akhir.
+            </div>
+          </div>
+          <!-- Service 4 -->
+          <div
+            class="flex flex-col md:flex-row justify-between items-start py-8 gap-4 md:gap-8"
+            style="border-bottom: 1px solid #e5e5e5"
+          >
+            <div class="font-mono text-xs pt-1 w-8" style="color: #6f6f6f">
+              04
+            </div>
+            <div
+              class="font-serif text-black flex-1 md:ml-8"
+              style="font-size: clamp(1.25rem, 3vw, 1.75rem)"
+              data-id="Strategi & Narasi"
+              data-en="Strategy & Narrative"
+            >
+              Strategi & Narasi
+            </div>
+            <div
+              class="text-sm leading-relaxed"
+              style="color: #6f6f6f; max-width: 20rem"
+              data-id="Cerita yang hanya bisa Anda ceritakan, disempurnakan dan disusun untuk audiens yang paling perlu mendengarnya."
+              data-en="The story only you can tell, refined and structured for the audiences who need to hear it most."
+            >
+              Cerita yang hanya bisa Anda ceritakan, disempurnakan dan disusun
+              untuk audiens yang paling perlu mendengarnya.
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ═══════════════════════════════════════ WORK ══ -->
+    <div id="work" style="border-top: 1px solid #e5e5e5">
+      <section
+        class="reveal max-w-7xl mx-auto px-6 py-24"
+        style="padding-left: 2rem; padding-right: 2rem"
+      >
+        <span
+          class="text-xs uppercase"
+          style="letter-spacing: 0.15em; color: #6f6f6f"
+          data-id="Karya"
+          data-en="Work"
+          >Karya</span
+        >
+        <h2
+          id="work-h2"
+          class="font-serif font-normal text-black mt-4"
+          style="font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -1px"
+          data-id="Proyek terpilih."
+          data-en="Selected projects."
+        >
+          Proyek terpilih.
+        </h2>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-8"
+          style="margin-top: 4rem"
+        >
+          <!-- Card 1 -->
+          <div class="img-zoom group" style="cursor: pointer">
+            <div
+              class="overflow-hidden rounded-sm"
+              style="width: 100%; aspect-ratio: 4/3"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=900&h=675&fit=crop&auto=format&q=85"
+                alt="Nocturne Brand Identity"
+                style="width: 100%; height: 100%; object-fit: cover"
+                loading="lazy"
+              />
+            </div>
+            <div
+              class="flex justify-between items-baseline gap-2"
+              style="margin-top: 1rem"
+            >
+              <span
+                class="font-serif text-black font-medium"
+                style="font-size: 1rem"
+                >Nocturne</span
+              >
+              <span
+                class="text-sm shrink-0"
+                style="color: #6f6f6f"
+                data-id="Identitas Merek · 2025"
+                data-en="Brand Identity · 2025"
+                >Identitas Merek · 2025</span
+              >
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="img-zoom" style="cursor: pointer">
+            <div
+              class="overflow-hidden rounded-sm"
+              style="width: 100%; aspect-ratio: 4/3"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?w=900&h=675&fit=crop&auto=format&q=85"
+                alt="Vesper Studio Digital"
+                style="width: 100%; height: 100%; object-fit: cover"
+                loading="lazy"
+              />
+            </div>
+            <div
+              class="flex justify-between items-baseline gap-2"
+              style="margin-top: 1rem"
+            >
+              <span
+                class="font-serif text-black font-medium"
+                style="font-size: 1rem"
+                >Vesper Studio</span
+              >
+              <span
+                class="text-sm shrink-0"
+                style="color: #6f6f6f"
+                data-id="Pengalaman Digital · 2024"
+                data-en="Digital Experience · 2024"
+                >Pengalaman Digital · 2024</span
+              >
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="img-zoom" style="cursor: pointer">
+            <div
+              class="overflow-hidden rounded-sm"
+              style="width: 100%; aspect-ratio: 4/3"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=900&h=675&fit=crop&auto=format&q=85"
+                alt="Solaire Art Direction"
+                style="width: 100%; height: 100%; object-fit: cover"
+                loading="lazy"
+              />
+            </div>
+            <div
+              class="flex justify-between items-baseline gap-2"
+              style="margin-top: 1rem"
+            >
+              <span
+                class="font-serif text-black font-medium"
+                style="font-size: 1rem"
+                >Solaire</span
+              >
+              <span
+                class="text-sm shrink-0"
+                style="color: #6f6f6f"
+                data-id="Arahan Seni · 2024"
+                data-en="Art Direction · 2024"
+                >Arahan Seni · 2024</span
+              >
+            </div>
+          </div>
+          <!-- Card 4 -->
+          <div class="img-zoom" style="cursor: pointer">
+            <div
+              class="overflow-hidden rounded-sm"
+              style="width: 100%; aspect-ratio: 4/3"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=900&h=675&fit=crop&auto=format&q=85"
+                alt="The Archive Strategy"
+                style="width: 100%; height: 100%; object-fit: cover"
+                loading="lazy"
+              />
+            </div>
+            <div
+              class="flex justify-between items-baseline gap-2"
+              style="margin-top: 1rem"
+            >
+              <span
+                class="font-serif text-black font-medium"
+                style="font-size: 1rem"
+                >The Archive</span
+              >
+              <span
+                class="text-sm shrink-0"
+                style="color: #6f6f6f"
+                data-id="Strategi & Narasi · 2023"
+                data-en="Strategy & Narrative · 2023"
+                >Strategi & Narasi · 2023</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ═══════════════════════════════════════ JOURNAL ══ -->
+    <div id="journal" style="background: #f8f8f8">
+      <section
+        class="reveal max-w-7xl mx-auto px-6 py-24"
+        style="padding-left: 2rem; padding-right: 2rem"
+      >
+        <span
+          class="text-xs uppercase"
+          style="letter-spacing: 0.15em; color: #6f6f6f"
+          data-id="Jurnal"
+          data-en="Journal"
+          >Jurnal</span
+        >
+        <h2
+          id="jnl-h2"
+          class="font-serif font-normal text-black mt-4"
+          style="font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -1px"
+          data-id="Dari meja kami."
+          data-en="From our desk."
+        >
+          Dari meja kami.
+        </h2>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-8"
+          style="margin-top: 4rem"
+        >
+          <!-- Article 1 -->
+          <div style="cursor: pointer" class="img-zoom group">
+            <div
+              class="overflow-hidden rounded-sm"
+              style="width: 100%; aspect-ratio: 3/2; margin-bottom: 1.25rem"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=533&fit=crop&auto=format&q=85"
+                alt="Stillness"
+                style="width: 100%; height: 100%; object-fit: cover"
+                loading="lazy"
+              />
+            </div>
+            <div
+              class="text-xs uppercase"
+              style="
+                letter-spacing: 0.15em;
+                color: #6f6f6f;
+                margin-bottom: 0.5rem;
+              "
+              data-id="Kerajinan"
+              data-en="Craft"
+            >
+              Kerajinan
+            </div>
+            <h3
+              class="font-serif font-normal text-black"
+              style="font-size: 1.2rem; line-height: 1.4"
+              data-id="Tentang ketenangan dan seni melakukan lebih sedikit"
+              data-en="On stillness and the art of doing less"
+            >
+              Tentang ketenangan dan seni melakukan lebih sedikit
+            </h3>
+            <div
+              style="font-size: 0.875rem; color: #6f6f6f; margin-top: 0.5rem"
+              data-id="Maret 2025"
+              data-en="March 2025"
+            >
+              Maret 2025
+            </div>
+          </div>
+          <!-- Article 2 -->
+          <div style="cursor: pointer" class="img-zoom group">
+            <div
+              class="overflow-hidden rounded-sm"
+              style="width: 100%; aspect-ratio: 3/2; margin-bottom: 1.25rem"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=533&fit=crop&auto=format&q=85"
+                alt="Digital work"
+                style="width: 100%; height: 100%; object-fit: cover"
+                loading="lazy"
+              />
+            </div>
+            <div
+              class="text-xs uppercase"
+              style="
+                letter-spacing: 0.15em;
+                color: #6f6f6f;
+                margin-bottom: 0.5rem;
+              "
+              data-id="Desain"
+              data-en="Design"
+            >
+              Desain
+            </div>
+            <h3
+              class="font-serif font-normal text-black"
+              style="font-size: 1.2rem; line-height: 1.4"
+              data-id="Mengapa karya digital terbaik tak terlihat"
+              data-en="Why the best digital work is invisible"
+            >
+              Mengapa karya digital terbaik tak terlihat
+            </h3>
+            <div
+              style="font-size: 0.875rem; color: #6f6f6f; margin-top: 0.5rem"
+              data-id="Januari 2025"
+              data-en="January 2025"
+            >
+              Januari 2025
+            </div>
+          </div>
+          <!-- Article 3 -->
+          <div style="cursor: pointer" class="img-zoom group">
+            <div
+              class="overflow-hidden rounded-sm"
+              style="width: 100%; aspect-ratio: 3/2; margin-bottom: 1.25rem"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&h=533&fit=crop&auto=format&q=85"
+                alt="Long form writing"
+                style="width: 100%; height: 100%; object-fit: cover"
+                loading="lazy"
+              />
+            </div>
+            <div
+              class="text-xs uppercase"
+              style="
+                letter-spacing: 0.15em;
+                color: #6f6f6f;
+                margin-bottom: 0.5rem;
+              "
+              data-id="Penulisan"
+              data-en="Writing"
+            >
+              Penulisan
+            </div>
+            <h3
+              class="font-serif font-normal text-black"
+              style="font-size: 1.2rem; line-height: 1.4"
+              data-id="Kembalinya format panjang"
+              data-en="The return of the long form"
+            >
+              Kembalinya format panjang
+            </h3>
+            <div
+              style="font-size: 0.875rem; color: #6f6f6f; margin-top: 0.5rem"
+              data-id="November 2024"
+              data-en="November 2024"
+            >
+              November 2024
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ═══════════════════════════════════════ CONTACT ══ -->
+    <div style="border-top: 1px solid #e5e5e5">
+      <section
+        id="contact"
+        class="reveal max-w-7xl mx-auto px-6 py-24 flex flex-col items-center text-center"
+        style="padding-left: 2rem; padding-right: 2rem"
+      >
+        <span
+          class="text-xs uppercase"
+          style="letter-spacing: 0.15em; color: #6f6f6f"
+          data-id="Hubungi Kami"
+          data-en="Reach Us"
+          >Hubungi Kami</span
+        >
+        <h2
+          id="cta-h2"
+          class="font-serif font-normal text-black mt-4"
+          style="
+            font-size: clamp(2.2rem, 7vw, 5rem);
+            letter-spacing: -1.5px;
+            line-height: 1;
+          "
+          data-id="Mari membangun sesuatu yang abadi."
+          data-en="Let's build something eternal."
+        >
+          Mari membangun sesuatu yang abadi.
+        </h2>
+        <p
+          id="cta-p"
+          style="
+            margin-top: 1.5rem;
+            max-width: 36rem;
+            font-size: 1rem;
+            color: #6f6f6f;
+            line-height: 1.75;
+          "
+          data-id="Kami menerima sejumlah terbatas proyek baru setiap musim. Jika pekerjaan Anda menuntut yang luar biasa, mari mulai percakapannya."
+          data-en="We take on a limited number of new projects each season. If your work demands the extraordinary, let's begin the conversation."
+        >
+          Kami menerima sejumlah terbatas proyek baru setiap musim. Jika
+          pekerjaan Anda menuntut yang luar biasa, mari mulai percakapannya.
+        </p>
+        <div
+          class="flex flex-col sm:flex-row gap-4 items-center justify-center w-full"
+          style="margin-top: 3rem"
+        >
+          <a
+            id="cta-wa"
+            href="https://wa.me/6281384072641?text=Halo%2C%20saya%20ingin%20mendiskusikan%20proyek%20dengan%20CariSolusi.%20Bisakah%20kita%20terhubung%3F"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="pill-btn w-full sm:w-auto"
+            data-id="Mulai Perjalanan"
+            data-en="Begin Journey"
+            >Mulai Perjalanan</a
+          >
+          <button
+            onclick="scrollTo('work')"
+            class="pill-btn-outline w-full sm:w-auto"
+            data-id="Lihat Karya Kami"
+            data-en="View Our Work"
+          >
+            Lihat Karya Kami
+          </button>
+        </div>
+        <div style="margin-top: 1.5rem; font-size: 0.75rem; color: #6f6f6f">
+          <span
+            data-id="Tersedia melalui WhatsApp"
+            data-en="Available via WhatsApp"
+            >Tersedia melalui WhatsApp</span
+          >
+          <span> · </span>
+          <a
+            id="cta-phone"
+            href="https://wa.me/6281384072641?text=Halo%2C%20saya%20ingin%20mendiskusikan%20proyek%20dengan%20CariSolusi.%20Bisakah%20kita%20terhubung%3F"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: #6f6f6f"
+            onmouseover="this.style.color = '#000'"
+            onmouseout="this.style.color = '#6F6F6F'"
+          >
+            +62 813 8407 2641
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <!-- ═══════════════════════════════════════ FOOTER ══ -->
+    <footer style="background: #000; color: #fff; padding: 4rem 2rem">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-start flex-wrap gap-8">
+          <div>
+            <div
+              class="font-serif"
+              style="font-size: 1.5rem; letter-spacing: -0.02em"
+            >
+              CariSolusi
+            </div>
+            <div
+              style="font-size: 0.875rem; color: #6f6f6f; margin-top: 0.5rem"
+              data-id="Arsitek dari yang tak terlihat."
+              data-en="Architects of the invisible."
+            >
+              Arsitek dari yang tak terlihat.
+            </div>
+          </div>
+          <div class="flex gap-6 flex-wrap items-center">
+            <button
+              onclick="scrollTo('home')"
+              style="
+                font-size: 0.875rem;
+                color: #6f6f6f;
+                background: none;
+                border: none;
+                transition: color 0.2s;
+              "
+              onmouseover="this.style.color = '#fff'"
+              onmouseout="this.style.color = '#6F6F6F'"
+              data-id="Beranda"
+              data-en="Home"
+            >
+              Beranda
+            </button>
+            <button
+              onclick="scrollTo('studio')"
+              style="
+                font-size: 0.875rem;
+                color: #6f6f6f;
+                background: none;
+                border: none;
+                transition: color 0.2s;
+              "
+              onmouseover="this.style.color = '#fff'"
+              onmouseout="this.style.color = '#6F6F6F'"
+              data-id="Studio"
+              data-en="Studio"
+            >
+              Studio
+            </button>
+            <button
+              onclick="scrollTo('about')"
+              style="
+                font-size: 0.875rem;
+                color: #6f6f6f;
+                background: none;
+                border: none;
+                transition: color 0.2s;
+              "
+              onmouseover="this.style.color = '#fff'"
+              onmouseout="this.style.color = '#6F6F6F'"
+              data-id="Tentang"
+              data-en="About"
+            >
+              Tentang
+            </button>
+            <button
+              onclick="scrollTo('journal')"
+              style="
+                font-size: 0.875rem;
+                color: #6f6f6f;
+                background: none;
+                border: none;
+                transition: color 0.2s;
+              "
+              onmouseover="this.style.color = '#fff'"
+              onmouseout="this.style.color = '#6F6F6F'"
+              data-id="Jurnal"
+              data-en="Journal"
+            >
+              Jurnal
+            </button>
+            <button
+              onclick="scrollTo('contact')"
+              style="
+                font-size: 0.875rem;
+                color: #6f6f6f;
+                background: none;
+                border: none;
+                transition: color 0.2s;
+              "
+              onmouseover="this.style.color = '#fff'"
+              onmouseout="this.style.color = '#6F6F6F'"
+              data-id="Hubungi"
+              data-en="Reach Us"
+            >
+              Hubungi
+            </button>
+          </div>
+        </div>
+        <div
+          style="width: 100%; height: 1px; background: #222; margin: 2.5rem 0"
+        ></div>
+        <div class="flex justify-between items-center flex-wrap gap-4">
+          <div
+            style="font-size: 0.75rem; color: #6f6f6f"
+            data-id="© 2025 CariSolusi. Hak cipta dilindungi."
+            data-en="© 2025 CariSolusi. All rights reserved."
+          >
+            © 2025 CariSolusi. Hak cipta dilindungi.
+          </div>
+          <a
+            id="footer-phone"
+            href="https://wa.me/6281384072641?text=Halo%2C%20saya%20ingin%20mendiskusikan%20proyek%20dengan%20CariSolusi.%20Bisakah%20kita%20terhubung%3F"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="font-size: 0.75rem; color: #6f6f6f; transition: color 0.2s"
+            onmouseover="this.style.color = '#fff'"
+            onmouseout="this.style.color = '#6F6F6F'"
+            >+62 813 8407 2641</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <!-- ═══════════════════════════════════════ JAVASCRIPT ══ -->
+    <script>
+      // ── Smooth scroll ──────────────────────────────────────
+      function scrollTo(id) {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      // ── Hamburger menu ─────────────────────────────────────
+      function toggleMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const btn = document.getElementById('ham-btn');
+        const isOpen = menu.classList.toggle('open');
+        btn.classList.toggle('ham-open', isOpen);
+      }
+      function closeMenu() {
+        document.getElementById('mobile-menu').classList.remove('open');
+        document.getElementById('ham-btn').classList.remove('ham-open');
+      }
+
+      // ── Language system ────────────────────────────────────
+      const WA = {
+        id: 'https://wa.me/6281384072641?text=Halo%2C%20saya%20ingin%20mendiskusikan%20proyek%20dengan%20CariSolusi.%20Bisakah%20kita%20terhubung%3F',
+        en: 'https://wa.me/6281384072641?text=Hello%2C%20I%27d%20like%20to%20discuss%20a%20project%20with%20CariSolusi.%20Could%20we%20connect%3F',
+      };
+
+      const HERO = {
+        id: {
+          h: 'Melampaui <em style="color:#6F6F6F;">kesunyian,</em> kami membangun <em style="color:#6F6F6F;">yang abadi.</em>',
+          p: 'Membangun platform untuk pikiran-pikiran cemerlang, pembuat yang berani, dan jiwa yang penuh pertimbangan. Di tengah kebisingan, kami menciptakan ruang digital untuk kerja mendalam dan aliran murni.',
+        },
+        en: {
+          h: 'Beyond <em style="color:#6F6F6F;">silence,</em> we build <em style="color:#6F6F6F;">the eternal.</em>',
+          p: 'Building platforms for brilliant minds, fearless makers, and thoughtful souls. Through the noise, we craft digital havens for deep work and pure flows.',
+        },
+      };
+
+      let currentLang = 'id';
+
+      function setLang(lang) {
+        if (lang === currentLang) return;
+        currentLang = lang;
+
+        // Update toggle buttons
+        ['d', 'm'].forEach((suffix) => {
+          document.getElementById('lang-id-' + suffix).className =
+            'lang-btn ' + (lang === 'id' ? 'active' : 'inactive');
+          document.getElementById('lang-en-' + suffix).className =
+            'lang-btn ' + (lang === 'en' ? 'active' : 'inactive');
+        });
+
+        // Update hero (special HTML)
+        document.getElementById('hero-h1').innerHTML = HERO[lang].h;
+        document.getElementById('hero-desc').textContent = HERO[lang].p;
+
+        // Update all simple translatable elements
+        document.querySelectorAll('[data-' + lang + ']').forEach((el) => {
+          el.textContent = el.getAttribute('data-' + lang);
+        });
+
+        // Update WA links
+        const waHref = WA[lang];
+        ['nav-cta', 'mob-cta', 'cta-wa', 'cta-phone', 'footer-phone'].forEach(
+          (id) => {
+            const el = document.getElementById(id);
+            if (el) el.href = waHref;
+          },
+        );
+      }
+
+      // ── Scroll Reveal ──────────────────────────────────────
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12 },
+      );
+
+      document
+        .querySelectorAll('.reveal')
+        .forEach((el) => revealObserver.observe(el));
+
+      // ── Video fade loop ────────────────────────────────────
+      const video = document.getElementById('hero-video');
+      const FADE = 0.5; // seconds
+      let rafId;
+
+      function videoLoop() {
+        const { currentTime: t, duration: d } = video;
+        if (!d) {
+          rafId = requestAnimationFrame(videoLoop);
+          return;
+        }
+        if (t < FADE) video.style.opacity = (t / FADE).toFixed(3);
+        else if (t > d - FADE)
+          video.style.opacity = ((d - t) / FADE).toFixed(3);
+        else video.style.opacity = '1';
+        rafId = requestAnimationFrame(videoLoop);
+      }
+
+      video.addEventListener('play', () => {
+        cancelAnimationFrame(rafId);
+        videoLoop();
+      });
+      video.addEventListener('pause', () => cancelAnimationFrame(rafId));
+      video.addEventListener('ended', () => {
+        cancelAnimationFrame(rafId);
+        video.style.opacity = '0';
+        setTimeout(() => {
+          video.currentTime = 0;
+          video.play();
+        }, 100);
+      });
+      video.play().catch(() => {});
+    </script>
+  </body>
+</html>
