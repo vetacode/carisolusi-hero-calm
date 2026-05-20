@@ -35,6 +35,9 @@
       *::after {
         box-sizing: border-box;
       }
+      html {
+        scroll-behavior: smooth;
+      }
       body {
         font-family: 'Inter', sans-serif;
         background: #fff;
@@ -513,7 +516,7 @@
     </div>
 
     <!-- ═══════════════════════════════════════ ABOUT ══ -->
-    <div id="about" style="border-top: 1px solid #e5e5e5">
+    <div id="about" style="border-top: 0px solid #e5e5e5">
       <section
         class="reveal max-w-7xl mx-auto px-6 py-24"
         style="padding-left: 2rem; padding-right: 2rem"
@@ -1163,14 +1166,15 @@
             data-en="Begin Journey"
             >Mulai Perjalanan</a
           >
-          <button
-            onclick="scrollTo('work')"
-            class="pill-btn-outline w-full sm:w-auto"
-            data-id="Lihat Karya Kami"
-            data-en="View Our Work"
-          >
-            Lihat Karya Kami
-          </button>
+          <a href="#work">
+            <button
+              class="pill-btn-outline w-full sm:w-auto"
+              data-id="Lihat Karya Kami"
+              data-en="View Our Work"
+            >
+              Lihat Karya Kami
+            </button>
+          </a>
         </div>
         <div style="margin-top: 1.5rem; font-size: 0.75rem; color: #6f6f6f">
           <span
